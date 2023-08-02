@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Something {{name}}</h1>
+
+    <form action="counter" method="post">
+        <!-- memasukan csrf token supaya bisa melewati keamanan post request -->
+        {{% csrf_token %}}
+
+        <textarea name="words" placeholder="WErite Here" id="" cols="30" rows="10"></textarea>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
