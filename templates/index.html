@@ -1,20 +1,27 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
 </head>
 <body>
+    <section class="p-5 m-4 mx-2 text-xl grid gap-2">
     <h1>Something {{name}}</h1>
 
     <form action="counter" method="post">
         <!-- memasukan csrf token supaya bisa melewati keamanan post request -->
-        {{% csrf_token %}}
+        {% csrf_token %}
 
-        <textarea name="words" placeholder="WErite Here" id="" cols="30" rows="10"></textarea>
+        <textarea name="words" placeholder="WErite Here" id="" cols="30" rows="10" class="border border-2 rounded-md border-black"></textarea>
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="border border-1 border-black rounded-lg bg-slate-400">
     </form>
+    </section>
+    
 </body>
 </html>

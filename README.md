@@ -6,7 +6,9 @@
 
 ### Installing package
 ```
-    pip install <package-name>
+    pip install virtualenv
+    pip install virtualenvwrapper-win
+    pip install django
 ```
 
 ### Creating Virtual Environment
@@ -42,7 +44,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('<name-of-api>'))
+    path('',include('<name-of-api>.urls'))
 ]
 ```
 
@@ -127,4 +129,60 @@ output
 ```
 
 
-### 
+### Set Static Folder
+
+- Create Static Folder
+- Add this on the settings.py on mainProject file
+setting.py
+```py
+.....
+
+STATIC_URL = 'static/'
+#Add this
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+....
+```
+- Link the css with django static definition
+```html
+{% load static %}
+.....
+<head>
+    .....
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    .....
+</head>
+.....
+```
+
+# Manage Models
+### Configure models
+- Add your API into your mainProject settings.py
+mainProject/settings.py
+```py
+....
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'name-of-api',
+]
+....
+```
+- Set the models on your API
+```py
+from django.db import models
+
+# Create your models here.
+# id is auto-generated
+class YourModels(models.Model):
+    thisisname = models.CharField()#String Type text
+
+```
+- Make migration from commandline
+```cmd
+python manage.py makemigration
+```
