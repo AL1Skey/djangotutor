@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Login Page</title>
+</head>
+<body>
+    {% for message in messages%}
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+        <p>{{message}}</p>
+    </div>
+    {% endfor %}
+
+    <div class="m-auto my-5  p-5 w-2/5 border border-1 border-black">
+        <form action="login" method="post">
+            {%csrf_token%}
+            <label for="username">Username :</label>
+            <input class="outline-1 outline-double" type="text" name="username">
+            <br><br>
+            <label for="password">Password :</label>
+            <input  class="outline-1 outline-double" type="text" name="password">
+            <br><br>
+            <div class="flex justify-between w-1/2 mx-auto">
+                <input class="px-2 py-1 border border-1 border-black rounded-3xl hover:cursor-pointer hover:text-white hover:bg-black" type="submit" value="Log In">
+                <a class="px-2 py-1 border border-1 border-black rounded-3xl hover:cursor-pointer hover:text-white hover:bg-black" href="register">Register</a>
+            </div>
+            
+        </form>
+    </div>
+</body>
+</html>

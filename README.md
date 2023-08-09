@@ -180,9 +180,104 @@ from django.db import models
 # id is auto-generated
 class YourModels(models.Model):
     thisisname = models.CharField()#String Type text
-
+    thisisnumber = models.IntegerField()#Integer Type Text
+    # Naming created database according to name variable
+    def __str__(self):
+        return self.name
+    
 ```
 - Make migration from commandline
 ```cmd
 python manage.py makemigration
+```
+
+### Registering models to admin panel
+- open admin.py on your one of API and add this line of code
+```py
+...
+from .models import <name-of-models>
+
+admin.site.register(<name-of-models>)
+...
+```
+
+# Fetching/Get all data from database
+```py
+    ....
+    from .models import <name-of-models>
+    ....
+    data = <name-of-models>.objects.all()
+
+```
+
+# Creating Login and Logout function inside views.py
+### Login
+```py
+....
+from django.contrib.auth.models import User, auth
+....
+def login(request):
+    ....
+        username = request.POST['username']
+        password = request.POST['password']
+        #See if the user with that passowrd avaliable
+        user = auth.authenticate(username=username, password=password)
+        
+        if user is not None:#if user avaliable
+            auth.login(request,user)
+            #Go to homepage(root)
+            return redirect('/')
+    ....
+```
+### Logout
+```py
+....
+from django.contrib.auth.models import User, auth
+....
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+```
+
+# Database Configurtion
+- ### Install Pillow and Psycopg library
+
+- ### Edit settings.py with code bellow
+project/settings.py
+```py
+.....
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',# Name of Databse Lnguage
+        'NAME': 'djangoproject',#Name of database
+        'USER':'postgres',#Name of USer
+        'PASSWORD':'',
+        'HOST':'localhost',#Host Name
+        'PORT':'5432',#Port
+    }
+}
+.....
+```
+- ### Migrate the database
+```cmd
+python manage.py makemigrations
+python manage.py migrate
+```
+
+# Create dynamic urls
+- ### add this to urls
+```py
+.....
+urlpatterns = [
+    ....
+    path('post/<str:something>',views.post, name='post')
+    ]
+```
+- ### use it on view like this
+```py
+.....
+def post(request,something):
+    resp = f'<h1>The Dynamic urls is {something}</h1>'
+    return HttpResponse(resp)
+....
 ```

@@ -5,23 +5,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{%static 'style.css'%}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Home</title>
 </head>
 <body>
-    <section class="p-5 m-4 mx-2 text-xl grid gap-2">
-    <h1>Something {{name}}</h1>
-
-    <form action="counter" method="post">
-        <!-- memasukan csrf token supaya bisa melewati keamanan post request -->
-        {% csrf_token %}
-
-        <textarea name="words" placeholder="WErite Here" id="" cols="30" rows="10" class="border border-2 rounded-md border-black"></textarea>
-        <br>
-        <input type="submit" value="Submit" class="border border-1 border-black rounded-lg bg-slate-400">
-    </form>
+    <!-- navigation -->
+    <section class="w-full h-auto nav py-2 px-3 bg-blue-500">
+        <nav class="w-full h-full flex justify-between">
+            <!-- main bar -->
+            <ul class="w-1/2 h-full main flex justify-around items-center">
+                {% for item in items %}
+                <li>
+                    <a class="text-white text-xl font-bold hover:underline" href="#">{{ item }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            
+            <ul class="w-1/4 h-full main flex justify-around">
+                <!-- IF STILL LOGFIN -->
+                {% if user.is_authenticated%}
+                <li>
+                    <a href="logout"><i class="text-white text-2xl font-bold fas fa-sign-out hover:fa-shake"></i></a>
+                </li>
+                <li class="text-white text-xl font-bold hover:underline">Welcome, {{user.username}}</li>
+                <!-- IF LOG OUT -->
+                {%else%}
+                <li class="px-2 py-1 rounded-lg bg-lime-400">
+                    <a class="text-lime-700 text-xl font-bold hover:underline" href="login">Log In</a>
+                </li>
+                <li class="px-2 py-1 rounded-lg bg-lime-400">
+                    <a class="text-lime-700 text-xl font-bold hover:underline" href="register">Register</a>
+                </li>
+                {%endif%}
+            </ul> 
+        </nav>
     </section>
-    
+
+    <!-- Header -->
+    <header class="w-full h-80 flex flex-col justify-center items-center leading-loose text-center bg-teal-300 text-5xl text-blue-500 font-bold">
+        {% if user.is_authenticated %}
+        <h1 class="text-center">
+            Welcome {{user.username}}.
+        </h1>
+        {% else %}  
+        <h1 class="text-center">
+            Welcome, Esteemed Guest.
+        </h1>
+        {%endif%}
+        <p class="text-base text-blue-600 ">This is where adventure begin</p>
+
+    </header>
 </body>
 </html>
