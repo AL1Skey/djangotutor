@@ -1,0 +1,5 @@
+django
+virtualenvwrapper-win
+djangorestframework
+markdown
+django-filter
